@@ -39,7 +39,7 @@ export default new Router({
         {
           path: 'user',
           name: 'user',
-          // component: (resolve) => require(['./views/sys/user.vue'], resolve),
+          component: (resolve) => require(['../views/sys/user.vue'], resolve),
           meta: {
             title: 'user'
           }
