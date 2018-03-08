@@ -47,7 +47,7 @@ export default new Router({
         {
           path: 'menu',
           name: 'menu',
-          // component: (resolve) => require(['./views/sys/menu.vue'], resolve),
+          component: (resolve) => require(['../views/sys/menu.vue'], resolve),
           meta: {
             title: 'menu'
           }
@@ -55,7 +55,7 @@ export default new Router({
         {
           path: 'role',
           name: 'role',
-          // component: (resolve) => require(['./views/sys/role.vue'], resolve),
+          component: (resolve) => require(['../views/sys/role.vue'], resolve),
           meta: {
             title: 'role'
           }

@@ -39,7 +39,7 @@
         <router-view></router-view>
       </div>
       <div class="layout-copy">
-        2017-2018 &copy; smallsnail-wh
+        2017-2018 &copy; smallsnail-hxh
       </div>
       </Col>
     </Row>

@@ -75,8 +75,8 @@
       loading: true,
       /* pageInfo实体 */
       pageInfo: {
-        page: 0,
-        pageSize: 10
+        page: 1,
+        pageSize: 20
       },
       /* role实体 */
       role: {
@@ -197,9 +197,9 @@
     })
     this.axios({
       method: 'get',
-      url: '/menus/submenus'
+      url: '/menu/submenus'
     }).then(function (response) {
-      this.submenusList = response.data
+      this.submenusList = response.data.data
     }.bind(this)).catch(function (error) {
       alert(error)
     })
@@ -256,10 +256,9 @@
     getTable(e) {
       this.axios({
         method: 'get',
-        url: '/roles',
+        url: '/role/getRoles',
         params: {
           'page': e.pageInfo.page,
-          'pageSize': e.pageInfo.pageSize
         }
       }).then(function (response) {
         this.data1 = response.data.data
@@ -291,7 +290,7 @@
           this.roleSet(this.roleNew)
           this.axios({
             method: 'post',
-            url: '/roles/role',
+            url: '/role/save',
             data: this.role
           }).then(function (response) {
             this.initRoleNew()
@@ -329,8 +328,8 @@
           this.initRole()
           this.roleSet(this.roleModify)
           this.axios({
-            method: 'put',
-            url: '/roles/' + this.role.id,
+            method: 'post',
+            url: '/role/save',
             data: this.role
           }).then(function (response) {
             this.initRoleModify()

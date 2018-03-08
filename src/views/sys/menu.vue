@@ -135,8 +135,8 @@
       loading: true,
       /* pageInfo实体 */
       pageInfo: {
-        page: 0,
-        pageSize: 10
+        page: 1,
+        pageSize: 20
       },
       /* menu实体 */
       menu: {
@@ -290,12 +290,12 @@
     })
     this.axios({
       method: 'get',
-      url: '/menus/parentId',
+      url: '/menu/parentId',
       params: {
         'parentId': 0
       }
     }).then(function (response) {
-      let listTemp = response.data
+      let listTemp = response.data.data
       for (let i = 0; i < listTemp.length; i++) {
         this.menuList.push({
           'value': listTemp[i].id,
@@ -309,7 +309,7 @@
   methods: {
     /* pageInfo实体初始化 */
     initPageInfo() {
-      this.pageInfo.page = 0
+      this.pageInfo.page = 1
       this.pageInfo.pageSize = 10
     },
     /* menu实体初始化 */
@@ -376,10 +376,9 @@
     getTable(e) {
       this.axios({
         method: 'get',
-        url: '/menus',
+        url: '/menu/getAllMenus',
         params: {
           'page': e.pageInfo.page,
-          'pageSize': e.pageInfo.pageSize,
           'menuId': e.menuId
         }
       }).then(function (response) {
@@ -421,7 +420,7 @@
           this.menuSet(this.menuNew)
           this.axios({
             method: 'post',
-            url: '/menus/menu',
+            url: '/menu/save',
             data: this.menu
           }).then(function (response) {
             this.initMenuNew()
@@ -460,8 +459,8 @@
           this.initMenu()
           this.menuSet(this.menuModify)
           this.axios({
-            method: 'put',
-            url: '/menus/' + this.menu.id,
+            method: 'post',
+            url: '/menu/save',
             data: this.menu
           }).then(function (response) {
             this.initMenuNew()
@@ -510,7 +509,7 @@
       if (this.groupId != null && this.groupId !== '') {
         this.axios({
           method: 'delete',
-          url: '/menus',
+          url: '/menu/delete',
           data: this.groupId
         }).then(function (response) {
           this.getTable({

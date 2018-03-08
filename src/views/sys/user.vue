@@ -35,71 +35,71 @@
     <!--添加modal-->
     <Modal :mask-closable='false' :visible.sync='newModal' :loading='loading' v-model='newModal' width='600' title='新建'
            @on-ok="newOk('userNew')" @on-cancel="cancel()">
-    <Form ref='userNew' :model='userNew' :rules='ruleNew' :label-width='80'>
-      <Row>
-        <Col span='12'>
-        <Form-item label='登录名:' prop='loginName'>
-          <Input v-model='userNew.loginName' style='width: 204px'/>
-        </Form-item>
-        </Col>
-        <Col span='12'>
-        <Form-item label='用户名:' prop='name'>
-          <Input v-model='userNew.name' style='width: 204px'/>
-        </Form-item>
-        </Col>
-      </Row>
-      <Row>
-        <Col span='12'>
-        <Form-item label='密码:' prop='password'>
-          <Input v-model='userNew.password' type='password' style='width: 204px'/>
-        </Form-item>
-        </Col>
-        <Col span='12'>
-        <Form-item label='确认密码:' prop='passwordAgain'>
-          <Input v-model='userNew.passwordAgain' type='password' style='width: 204px'/>
-        </Form-item>
-        </Col>
-      </Row>
-      <Row>
-        <Col span='12'>
-        <Form-item label='邮箱:' prop='email'>
-          <Input v-model='userNew.email' style='width: 204px'/>
-        </Form-item>
-        </Col>
-      </Row>
-    </Form>
+      <Form ref='userNew' :model='userNew' :rules='ruleNew' :label-width='80'>
+        <Row>
+          <Col span='12'>
+          <Form-item label='登录名:' prop='loginName'>
+            <Input v-model='userNew.loginName' style='width: 204px'/>
+          </Form-item>
+          </Col>
+          <Col span='12'>
+          <Form-item label='用户名:' prop='name'>
+            <Input v-model='userNew.name' style='width: 204px'/>
+          </Form-item>
+          </Col>
+        </Row>
+        <Row>
+          <Col span='12'>
+          <Form-item label='密码:' prop='password'>
+            <Input v-model='userNew.password' type='password' style='width: 204px'/>
+          </Form-item>
+          </Col>
+          <Col span='12'>
+          <Form-item label='确认密码:' prop='passwordAgain'>
+            <Input v-model='userNew.passwordAgain' type='password' style='width: 204px'/>
+          </Form-item>
+          </Col>
+        </Row>
+        <Row>
+          <Col span='12'>
+          <Form-item label='邮箱:' prop='email'>
+            <Input v-model='userNew.email' style='width: 204px'/>
+          </Form-item>
+          </Col>
+        </Row>
+      </Form>
     </Modal>
     <!--修改modal-->
     <Modal :mask-closable='false' :visible.sync='modifyModal' :loading='loading' v-model='modifyModal' width='600'
            title='修改' @on-ok="modifyOk('userModify')" @on-cancel="cancel()">
-    <Form ref='userModify' :model='userModify' :rules='ruleModify' :label-width='80'>
-      <Row>
-        <Col span='12'>
-        <Form-item label='登录名:' prop='loginName'>
-          <Input v-model='userModify.loginName' style='width: 204px'/>
-        </Form-item>
-        </Col>
-        <Col span='12'>
-        <Form-item label='用户名:' prop='name'>
-          <Input v-model='userModify.name' style='width: 204px'/>
-        </Form-item>
-        </Col>
-      </Row>
-      <Row>
-        <Col span='12'>
-        <Form-item label='密码:' prop='password'>
-          <Input v-model='userModify.password' type='password' style='width: 204px'/>
-        </Form-item>
-        </Col>
-      </Row>
-      <Row>
-        <Col span='12'>
-        <Form-item label='邮箱:' prop='email'>
-          <Input v-model='userModify.email' style='width: 204px'/>
-        </Form-item>
-        </Col>
-      </Row>
-    </Form>
+      <Form ref='userModify' :model='userModify' :rules='ruleModify' :label-width='80'>
+        <Row>
+          <Col span='12'>
+          <Form-item label='登录名:' prop='loginName'>
+            <Input v-model='userModify.loginName' style='width: 204px'/>
+          </Form-item>
+          </Col>
+          <Col span='12'>
+          <Form-item label='用户名:' prop='name'>
+            <Input v-model='userModify.name' style='width: 204px'/>
+          </Form-item>
+          </Col>
+        </Row>
+        <Row>
+          <Col span='12'>
+          <Form-item label='密码:' prop='password'>
+            <Input v-model='userModify.password' type='password' style='width: 204px'/>
+          </Form-item>
+          </Col>
+        </Row>
+        <Row>
+          <Col span='12'>
+          <Form-item label='邮箱:' prop='email'>
+            <Input v-model='userModify.email' style='width: 204px'/>
+          </Form-item>
+          </Col>
+        </Row>
+      </Form>
     </Modal>
     <!--配置角色modal-->
     <Modal v-model='roleModal' width='500' title='角色配置' @on-ok='roleOk()' @on-cancel='cancel()'>
@@ -269,7 +269,7 @@
       method: 'get',
       url: '/role/all'
     }).then(function (response) {
-      this.data2Temp = response.data
+      this.data2Temp = response.data.data
     }.bind(this)).catch(function (error) {
       alert(error)
     })
@@ -277,8 +277,8 @@
   methods: {
     /* pageInfo实体初始化 */
     initPageInfo() {
-      this.pageInfo.page = 0
-      this.pageInfo.pageSize = 10
+      this.pageInfo.page = 1
+      this.pageInfo.pageSize = 20
     },
     /* user实体初始化 */
     initUser() {
@@ -379,7 +379,7 @@
             this.userSet(this.userNew)
             this.axios({
               method: 'post',
-              url: '/users/user',
+              url: '/user/save',
               data: this.user
             }).then(function (response) {
               this.initUserNew()
@@ -426,8 +426,8 @@
           this.initUser()
           this.userSet(this.userModify)
           this.axios({
-            method: 'put',
-            url: '/users/' + this.user.id,
+            method: 'post',
+            url: '/user/save',
             data: this.user
           }).then(function (response) {
             this.initUserNew()
@@ -473,10 +473,14 @@
     /* 删除table中选中的数据 */
     del() {
       if (this.groupId != null && this.groupId !== '') {
+        console.log(this.groupId)
         this.axios({
           method: 'delete',
-          url: '/users',
-          data: this.groupId
+          url: '/user/delete',
+          data: this.groupId,
+          params: {
+            'userIds': this.groupId
+          }
         }).then(function (response) {
           this.getTable({
             'pageInfo': this.pageInfo,
@@ -505,8 +509,8 @@
         url: '/relations/' + e.id
       }).then(function (response) {
         let roleList = []
-        for (let i in response.data) {
-          roleList.push(response.data[i].roleId)
+        for (let i in response.data.data) {
+          roleList.push(response.data.data[i].roleId)
         }
         for (let i in this.data2Temp) {
           if (roleList.indexOf(this.data2Temp[i].id) === -1) {
@@ -536,7 +540,7 @@
       if (this.relationList != null) {
         this.axios({
           method: 'post',
-          url: '/relations',
+          url: '/relations/save',
           data: this.relationList
         }).then(function (response) {
           this.$Message.info('配置成功')
